@@ -44,7 +44,7 @@ private extension AppDelegate {
             }
         case "bookings":
             if let subPath = subPath, subPath == "details" {
-                return .bookings(.details)
+                return .bookings(.details(nil))
             } else {
                 return .bookings(.list)
             }

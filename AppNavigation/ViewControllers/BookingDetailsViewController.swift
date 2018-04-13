@@ -11,10 +11,19 @@ import UIKit
 class BookingDetailsViewController: UIViewController {
     private lazy var label: UILabel = {
         let label = UILabel(frame: .zero)
-        label.text = "BookingDetailsViewController"
+        label.text = booking?.hotelName
         label.textAlignment = .center
         return label
     }()
+
+    private let booking: Booking?
+
+    init(booking: Booking?) {
+        self.booking = booking
+        super.init(nibName: nil, bundle: nil)
+    }
+
+    required init?(coder aDecoder: NSCoder) { requiredInit }
 
     override func viewDidLoad() {
         super.viewDidLoad()

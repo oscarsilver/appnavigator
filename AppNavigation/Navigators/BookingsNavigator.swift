@@ -13,7 +13,7 @@ class BookingsNavigator: Navigator {
 
     enum Destination {
         case list
-        case details
+        case details(Booking?)
     }
 
     func navigate(to destination: Destination) {
@@ -21,8 +21,8 @@ class BookingsNavigator: Navigator {
         switch destination {
         case .list:
             rootViewController.popToRootViewController(animated: false)
-        case .details:
-            rootViewController.pushViewController(BookingDetailsViewController(), animated: true)
+        case .details(let booking):
+            rootViewController.pushViewController(BookingDetailsViewController(booking: booking), animated: true)
         }
     }
 }

@@ -8,32 +8,11 @@
 
 import UIKit
 
-class BookingsViewController: UIViewController {
-
-    private lazy var label: UILabel = {
-        let label = UILabel(frame: .zero)
-        label.text = "BookingsViewController"
-        return label
-    }()
-
-    private lazy var button: UIButton = {
-        let button = UIButton(frame: .zero)
-        button.setTitle("Details", for: .normal)
-        button.setTitleColor(.white, for: .normal)
-        button.backgroundColor = .black
-        return button
-    }()
-
-    private var views: [UIView] { return [self.label, self.button] }
-
-    private lazy var stackView: UIStackView = {
-        let stackView = UIStackView(arrangedSubviews: views)
-        stackView.axis = .vertical
-        stackView.spacing = 20
-        return stackView
-    }()
+class BookingsViewController: UITableViewController {
 
     private weak var navigator: BookingsNavigator?
+
+    let bookings: [Booking] = [Booking(hotelName: "The Thief"), Booking(hotelName: "Comfort Hotel Express")]
 
     init(navigator: BookingsNavigator) {
         self.navigator = navigator
@@ -52,8 +31,22 @@ class BookingsViewController: UIViewController {
 }
 
 extension BookingsViewController {
-    @objc func detailsButtonPressed(_ button: UIButton) {
-        navigator?.navigate(to: .details)
+    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return bookings.count
+    }
+
+    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: BookingTableViewCell.identifier, for: indexPath)
+        if let cell = cell as? BookingTableViewCell, let booking = booking(at: indexPath) {
+            cell.configure(with: booking)
+        }
+        return cell
+    }
+
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        defer { tableView.deselectRow(at: indexPath, animated: true) }
+        guard let booking = booking(at: indexPath) else { return }
+        navigator?.navigate(to: .details(booking))
     }
 }
 
@@ -61,12 +54,14 @@ private extension BookingsViewController {
     func setupViews() {
         title = "Bookings"
         view.backgroundColor = .white
-        view.addSubview(stackView)
-        button.addTarget(self, action: #selector(detailsButtonPressed(_:)), for: .touchUpInside)
+        tableView.register(BookingTableViewCell.self, forCellReuseIdentifier: BookingTableViewCell.identifier)
     }
 
-    func setupConstriants() {
-        stackView.center(in: view)
+    func setupConstriants() {}
+
+    func booking(at indexPath: IndexPath) -> Booking? {
+        guard indexPath.row < bookings.count else { return nil }
+        return bookings[indexPath.row]
     }
 }
 
