@@ -41,7 +41,7 @@ class AppNavigator: Navigator {
     }
 
     func start() {
-        navigate(to: .moreMenu(.settings))
+        navigate(to: .onboarding)
     }
 }
 
@@ -63,7 +63,7 @@ private extension AppNavigator {
         let navigators = [AnyNavigator(BookingsNavigator(), tabIndex: 0), AnyNavigator(MoreMenuNavigator(), tabIndex: 1)]
         childNavigators[BookingsNavigator.identifier] = navigators[0]
         childNavigators[MoreMenuNavigator.identifier] = navigators[1]
-        tabBarController.viewControllers = navigators.flatMap { $0.rootViewController }
+        tabBarController.viewControllers = navigators.compactMap { $0.rootViewController }
         return tabBarController
     }
 }

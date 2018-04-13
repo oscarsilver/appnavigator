@@ -21,4 +21,35 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         navigator.start()
         return true
     }
+
+    func application(_ app: UIApplication, open url: URL, options: [UIApplicationOpenURLOptionsKey : Any] = [:]) -> Bool {
+        guard let destination = parse(url) else { return false }
+        navigator.navigate(to: destination)
+        return true
+    }
+}
+
+private extension AppDelegate {
+    func parse(_ url: URL) -> AppNavigator.Destination? {
+        guard let host = url.host else { return nil }
+
+        let subPath = url.pathComponents.last
+
+        switch host {
+        case "more":
+            if let subPath = subPath, subPath == "settings" {
+                return .moreMenu(.settings)
+            } else {
+                return .moreMenu(.root)
+            }
+        case "bookings":
+            if let subPath = subPath, subPath == "details" {
+                return .bookings(.details)
+            } else {
+                return .bookings(.list)
+            }
+        default:
+            return nil
+        }
+    }
 }
