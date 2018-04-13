@@ -14,6 +14,7 @@ class BookingsNavigator: Navigator {
     enum Destination {
         case list
         case details(Booking?)
+        case alert(Booking)
     }
 
     func navigate(to destination: Destination) {
@@ -23,6 +24,19 @@ class BookingsNavigator: Navigator {
             rootViewController.popToRootViewController(animated: false)
         case .details(let booking):
             rootViewController.pushViewController(BookingDetailsViewController(booking: booking), animated: true)
+        case .alert(let booking):
+            rootViewController.present(createAlertController(title: "Cancel Booking?", message: booking.hotelName), animated: true)
         }
+    }
+}
+
+private extension BookingsNavigator {
+    func createAlertController(title: String?, message: String? = nil) -> UIAlertController {
+        let alertController = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        let dismissAction = UIAlertAction(title: "Cancel", style: .destructive) { _ in
+            alertController.dismiss(animated: true)
+        }
+        alertController.addAction(dismissAction)
+        return alertController
     }
 }

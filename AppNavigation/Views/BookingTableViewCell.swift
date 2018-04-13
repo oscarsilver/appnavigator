@@ -11,7 +11,59 @@ import UIKit
 class BookingTableViewCell: UITableViewCell {
     static var identifier: String { return String(describing: type(of: self)) }
 
-    func configure(with booking: Booking) {
-        textLabel?.text = booking.hotelName
+    private lazy var nameLabel: UILabel = UILabel(frame: .zero)
+
+    private lazy var button: UIButton = {
+        let button = UIButton(frame: .zero)
+        button.backgroundColor = .white
+        button.setTitleColor(.black, for: .normal)
+        button.setTitle("Cancel", for: .normal)
+        button.layer.borderColor = UIColor.black.cgColor
+        button.layer.borderWidth = 1
+        return button
+    }()
+
+    private var views: [UIView] { return [nameLabel, button] }
+
+    private lazy var stackView: UIStackView = {
+       let stackView = UIStackView(arrangedSubviews: views)
+        stackView.distribution = .equalSpacing
+        return stackView
+    }()
+
+    private weak var navigator: BookingsNavigator?
+    private var booking: Booking?
+
+    override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
+        super.init(style: style, reuseIdentifier: reuseIdentifier)
+        setupViews()
+        setupConstraints()
+    }
+
+    required init?(coder aDecoder: NSCoder) { requiredInit }
+
+    func configure(with booking: Booking, navigator: BookingsNavigator?) {
+        self.navigator = navigator
+        self.booking = booking
+        nameLabel.text = booking.hotelName
+    }
+}
+
+extension BookingTableViewCell {
+    @objc func cancelButtonPressed(_ button: UIButton) {
+        guard let booking = booking else { return }
+        navigator?.navigate(to: .alert(booking))
+    }
+}
+
+private extension BookingTableViewCell {
+    func setupViews() {
+        contentView.addSubview(stackView)
+        button.addTarget(self, action: #selector(cancelButtonPressed(_:)), for: .touchUpInside)
+    }
+
+    func setupConstraints() {
+        stackView.edges(to: contentView, insets: UIEdgeInsets(top: 12, left: 16, bottom: 12, right: 16))
+        button.widthAnchor.constraint(equalToConstant: 72).isActive = true
     }
 }

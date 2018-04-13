@@ -38,7 +38,7 @@ extension BookingsViewController {
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: BookingTableViewCell.identifier, for: indexPath)
         if let cell = cell as? BookingTableViewCell, let booking = booking(at: indexPath) {
-            cell.configure(with: booking)
+            cell.configure(with: booking, navigator: navigator)
         }
         return cell
     }
@@ -54,6 +54,8 @@ private extension BookingsViewController {
     func setupViews() {
         title = "Bookings"
         view.backgroundColor = .white
+        tableView.rowHeight = UITableViewAutomaticDimension
+        tableView.estimatedRowHeight = 40
         tableView.register(BookingTableViewCell.self, forCellReuseIdentifier: BookingTableViewCell.identifier)
     }
 
@@ -64,4 +66,3 @@ private extension BookingsViewController {
         return bookings[indexPath.row]
     }
 }
-
