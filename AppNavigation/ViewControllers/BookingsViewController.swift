@@ -12,10 +12,10 @@ class BookingsViewController: UITableViewController {
 
     let bookings: [Booking] = [Booking(hotelName: "The Thief"), Booking(hotelName: "Comfort Hotel Express")]
 
-    private let navigationCompletion: NavigationCompletion
+    private let navigation: Navigation
 
-    init(navigationCompletion: @escaping NavigationCompletion) {
-        self.navigationCompletion = navigationCompletion
+    init(navigation: @escaping Navigation) {
+        self.navigation = navigation
         super.init(nibName: nil, bundle: nil)
     }
 
@@ -46,7 +46,7 @@ extension BookingsViewController {
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         defer { tableView.deselectRow(at: indexPath, animated: true) }
         guard let booking = booking(at: indexPath) else { return }
-        navigationCompletion(self, .bookings(.details(booking)))
+        navigation(self, .bookings(.details(booking)))
     }
 }
 

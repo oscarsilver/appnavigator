@@ -9,11 +9,11 @@
 import UIKit
 
 class MoreMenuCoordinator: Coordinator {
-    lazy var defaultNavigationCompletion: NavigationCompletion = { [weak self] _, nextDestination in
+    lazy var defaultnavigation: Navigation = { [weak self] _, nextDestination in
         self?.navigate(to: nextDestination)
     }
 
-    lazy var rootViewController: UIViewController? = UINavigationController(rootViewController: MoreMenuViewController(navigationCompletion: defaultNavigationCompletion))
+    lazy var rootViewController: UIViewController? = UINavigationController(rootViewController: MoreMenuViewController(navigation: defaultnavigation))
     weak var parent: Coordinator?
 
     init(parent: Coordinator) {

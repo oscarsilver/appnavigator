@@ -41,10 +41,10 @@ class MoreMenuViewController: UIViewController {
         return stackView
     }()
 
-    private let navigationCompletion: NavigationCompletion
+    private let navigation: Navigation
 
-    init(navigationCompletion: @escaping NavigationCompletion) {
-        self.navigationCompletion = navigationCompletion
+    init(navigation: @escaping Navigation) {
+        self.navigation = navigation
         super.init(nibName: nil, bundle: nil)
     }
 
@@ -61,11 +61,11 @@ class MoreMenuViewController: UIViewController {
 
 extension MoreMenuViewController {
     @objc func settingsButtonPressed(_ button: UIButton) {
-        navigationCompletion(self, .moreMenu(.settings))
+        navigation(self, .moreMenu(.settings))
     }
 
     @objc func onboardingButtonPressed(_ button: UIButton) {
-        navigationCompletion(self, .onboarding)
+        navigation(self, .onboarding)
     }
 }
 

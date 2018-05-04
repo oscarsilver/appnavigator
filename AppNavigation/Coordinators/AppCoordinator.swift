@@ -8,7 +8,7 @@
 
 import UIKit
 
-typealias NavigationCompletion = (UIViewController, Destination) -> Void
+typealias Navigation = (UIViewController, Destination) -> Void
 
 enum Destination {
     indirect case bookings(BookingDestination)
@@ -48,7 +48,7 @@ class AppCoordinator: Coordinator {
 
     var childCoordinators: [String: Coordinator] = [:]
 
-    lazy var defaultNavigationCompletion: NavigationCompletion = { [weak self] _, nextDestination in
+    lazy var defaultnavigation: Navigation = { [weak self] _, nextDestination in
         self?.navigate(to: nextDestination)
     }
 

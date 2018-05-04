@@ -34,10 +34,10 @@ class OnboardingViewController: UIViewController {
         return stackView
     }()
 
-    private let navigationCompletion: NavigationCompletion
+    private let navigation: Navigation
 
-    init(navigationCompletion: @escaping NavigationCompletion) {
-        self.navigationCompletion = navigationCompletion
+    init(navigation: @escaping Navigation) {
+        self.navigation = navigation
         super.init(nibName: nil, bundle: nil)
     }
 
@@ -52,7 +52,7 @@ class OnboardingViewController: UIViewController {
 
 extension OnboardingViewController {
     @objc func skipButtonPressed(_ button: UIButton) {
-        navigationCompletion(self, .bookings(.list))
+        navigation(self, .bookings(.list))
     }
 }
 
