@@ -16,9 +16,11 @@ class BookingCoordinator: Coordinator {
 
     lazy var rootViewController: UIViewController? = UINavigationController(rootViewController: BookingsViewController(navigation: defaultnavigation))
     weak var parent: Coordinator?
+    let tabIndex: Int?
 
-    init(parent: Coordinator) {
+    init(parent: Coordinator, tabIndex: Int) {
         self.parent = parent
+        self.tabIndex = tabIndex
     }
 
     func navigate(to destination: Destination) {

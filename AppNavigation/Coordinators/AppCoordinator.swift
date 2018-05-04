@@ -29,6 +29,7 @@ enum Destination {
 
 protocol Coordinator: class {
     var parent: Coordinator? { get }
+    var tabIndex: Int? { get }
     static var identifier: String { get }
     var rootViewController: UIViewController? { get }
     func navigate(to destination: Destination)
@@ -41,6 +42,7 @@ extension Coordinator {
 }
 
 class AppCoordinator: Coordinator {
+    var tabIndex: Int? = nil
     var parent: Coordinator? = nil
 
     private weak var window: UIWindow?
@@ -61,9 +63,9 @@ class AppCoordinator: Coordinator {
     func navigate(to destination: Destination) {
         switch destination {
         case .bookings:
-            childCoordinators[BookingCoordinator.identifier]?.navigate(to: destination)
+            navigateToTab(coordinatorIdentifier: BookingCoordinator.identifier, destination)
         case .moreMenu:
-            childCoordinators[MoreMenuCoordinator.identifier]?.navigate(to: destination)
+            navigateToTab(coordinatorIdentifier: MoreMenuCoordinator.identifier, destination)
         case .onboarding:
             let onboardingViewController = OnboardingViewController { [weak self] viewController, nextDestination in
                 self?.navigate(to: nextDestination)
@@ -76,27 +78,26 @@ class AppCoordinator: Coordinator {
     }
 
     func start() {
-        navigate(to: .onboarding)
+        navigate(to: .bookings(.list))
     }
 }
 
 // MARK: - Private Methods
 private extension AppCoordinator {
-    func navigateToTab(coordinatorIdentifier: String, _ destination: Any) {
-//        guard let coordinator = childCoordinators[coordinatorIdentifier],
-//            let tabBarController = rootViewController as? UITabBarController else { return }
-//
-//        if let tabIndex = navigator.tabIndex {
-//            tabBarController.selectedIndex = tabIndex
-//        }
+    func navigateToTab(coordinatorIdentifier: String, _ destination: Destination) {
+        guard let coordinator = childCoordinators[coordinatorIdentifier],
+            let tabBarController = rootViewController as? UITabBarController else { return }
 
-//        coordinator.navigate(to: destination)
-//        navigator.navigate(to: destination)
+        if let tabIndex = coordinator.tabIndex {
+            tabBarController.selectedIndex = tabIndex
+        }
+
+        coordinator.navigate(to: destination)
     }
 
     func createTabBarController() -> UITabBarController {
-        let bookingCoordinator = BookingCoordinator(parent: self)
-        let moreMenuCoordinator = MoreMenuCoordinator(parent: self)
+        let bookingCoordinator = BookingCoordinator(parent: self, tabIndex: 0)
+        let moreMenuCoordinator = MoreMenuCoordinator(parent: self, tabIndex: 1)
         childCoordinators[BookingCoordinator.identifier] = bookingCoordinator
         childCoordinators[MoreMenuCoordinator.identifier] = moreMenuCoordinator
 
