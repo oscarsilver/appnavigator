@@ -29,8 +29,15 @@ enum Destination {
 
 protocol Coordinator: class {
     var parent: Coordinator? { get }
+    static var identifier: String { get }
     var rootViewController: UIViewController? { get }
     func navigate(to destination: Destination)
+}
+
+extension Coordinator {
+    static var identifier: String {
+        return String(describing: type(of: self))
+    }
 }
 
 class AppCoordinator: Coordinator {
@@ -39,7 +46,7 @@ class AppCoordinator: Coordinator {
     private weak var window: UIWindow?
     var rootViewController: UIViewController?
 
-    var childCoordinators: [Coordinator] = []
+    var childCoordinators: [String: Coordinator] = [:]
 
     lazy var defaultNavigationCompletion: NavigationCompletion = { [weak self] _, nextDestination in
         self?.navigate(to: nextDestination)
@@ -54,15 +61,15 @@ class AppCoordinator: Coordinator {
     func navigate(to destination: Destination) {
         switch destination {
         case .bookings:
-            childCoordinators[0].navigate(to: destination)
+            childCoordinators[BookingCoordinator.identifier]?.navigate(to: destination)
         case .moreMenu:
-            childCoordinators[1].navigate(to: destination)
+            childCoordinators[MoreMenuCoordinator.identifier]?.navigate(to: destination)
         case .onboarding:
             let onboardingViewController = OnboardingViewController { [weak self] viewController, nextDestination in
                 self?.navigate(to: nextDestination)
                 viewController.dismiss(animated: true)
             }
-            rootViewController?.present(onboardingViewController, animated: true)
+            rootViewController?.present(onboardingViewController, animated: false)
         default:
             print("Navigation to \(destination) not implemented yet")
         }
@@ -75,14 +82,26 @@ class AppCoordinator: Coordinator {
 
 // MARK: - Private Methods
 private extension AppCoordinator {
+    func navigateToTab(coordinatorIdentifier: String, _ destination: Any) {
+//        guard let coordinator = childCoordinators[coordinatorIdentifier],
+//            let tabBarController = rootViewController as? UITabBarController else { return }
+//
+//        if let tabIndex = navigator.tabIndex {
+//            tabBarController.selectedIndex = tabIndex
+//        }
+
+//        coordinator.navigate(to: destination)
+//        navigator.navigate(to: destination)
+    }
+
     func createTabBarController() -> UITabBarController {
         let bookingCoordinator = BookingCoordinator(parent: self)
         let moreMenuCoordinator = MoreMenuCoordinator(parent: self)
-        childCoordinators.append(bookingCoordinator)
-        childCoordinators.append(moreMenuCoordinator)
+        childCoordinators[BookingCoordinator.identifier] = bookingCoordinator
+        childCoordinators[MoreMenuCoordinator.identifier] = moreMenuCoordinator
 
         let tabBarController = UITabBarController(nibName: nil, bundle: nil)
-        tabBarController.viewControllers = childCoordinators.compactMap { $0.rootViewController }
+        tabBarController.viewControllers = childCoordinators.values.compactMap { $0.rootViewController }
         return tabBarController
     }
 }

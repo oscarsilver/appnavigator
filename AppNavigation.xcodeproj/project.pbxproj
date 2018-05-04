@@ -15,7 +15,6 @@
 		FAFA9DC8207F51A400C7B457 /* OnboardingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAFA9DC7207F51A400C7B457 /* OnboardingViewController.swift */; };
 		FAFA9DCD207F51A400C7B457 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FAFA9DCC207F51A400C7B457 /* Assets.xcassets */; };
 		FAFA9DD0207F51A400C7B457 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FAFA9DCE207F51A400C7B457 /* LaunchScreen.storyboard */; };
-		FAFA9DD8207F51E200C7B457 /* Navigator.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAFA9DD7207F51E200C7B457 /* Navigator.swift */; };
 		FAFA9DDE207F526800C7B457 /* Basics.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAFA9DDD207F526800C7B457 /* Basics.swift */; };
 		FAFA9DE0207F573A00C7B457 /* UIView+Autolayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAFA9DDF207F573A00C7B457 /* UIView+Autolayout.swift */; };
 		FAFA9DE3207F810D00C7B457 /* MoreMenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAFA9DE2207F810D00C7B457 /* MoreMenuViewController.swift */; };
@@ -36,7 +35,6 @@
 		FAFA9DCC207F51A400C7B457 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		FAFA9DCF207F51A400C7B457 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		FAFA9DD1207F51A400C7B457 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		FAFA9DD7207F51E200C7B457 /* Navigator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Navigator.swift; sourceTree = "<group>"; };
 		FAFA9DDD207F526800C7B457 /* Basics.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Basics.swift; sourceTree = "<group>"; };
 		FAFA9DDF207F573A00C7B457 /* UIView+Autolayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Autolayout.swift"; sourceTree = "<group>"; };
 		FAFA9DE2207F810D00C7B457 /* MoreMenuViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoreMenuViewController.swift; sourceTree = "<group>"; };
@@ -105,7 +103,6 @@
 				FAD69F7E209B522E00942C9A /* Coordinators */,
 				FA18EBCC2080E1F6000A7C69 /* Views */,
 				FA18EBC92080E198000A7C69 /* Models */,
-				FAFA9DE6207F848100C7B457 /* Navigators */,
 				FAFA9DE1207F80F900C7B457 /* ViewControllers */,
 				FAFA9DC5207F51A400C7B457 /* AppDelegate.swift */,
 				FAFA9DCC207F51A400C7B457 /* Assets.xcassets */,
@@ -127,14 +124,6 @@
 				FAA54972207FA94500A3F791 /* BookingDetailsViewController.swift */,
 			);
 			path = ViewControllers;
-			sourceTree = "<group>";
-		};
-		FAFA9DE6207F848100C7B457 /* Navigators */ = {
-			isa = PBXGroup;
-			children = (
-				FAFA9DD7207F51E200C7B457 /* Navigator.swift */,
-			);
-			path = Navigators;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -221,7 +210,6 @@
 				FA18EBCE2080E201000A7C69 /* BookingTableViewCell.swift in Sources */,
 				FAFA9DC6207F51A400C7B457 /* AppDelegate.swift in Sources */,
 				FAFA9DE3207F810D00C7B457 /* MoreMenuViewController.swift in Sources */,
-				FAFA9DD8207F51E200C7B457 /* Navigator.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
