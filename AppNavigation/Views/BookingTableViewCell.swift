@@ -31,7 +31,6 @@ class BookingTableViewCell: UITableViewCell {
         return stackView
     }()
 
-    private weak var navigator: BookingsNavigator?
     private var booking: Booking?
 
     override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
@@ -42,17 +41,16 @@ class BookingTableViewCell: UITableViewCell {
 
     required init?(coder aDecoder: NSCoder) { requiredInit }
 
-    func configure(with booking: Booking, navigator: BookingsNavigator?) {
-        self.navigator = navigator
+    func configure(with booking: Booking?) {
         self.booking = booking
-        nameLabel.text = booking.hotelName
+        nameLabel.text = booking?.hotelName
     }
 }
 
 extension BookingTableViewCell {
     @objc func cancelButtonPressed(_ button: UIButton) {
         guard let booking = booking else { return }
-        navigator?.navigate(to: .alert(booking))
+//        navigator?.navigate(to: .alert(booking))
     }
 }
 

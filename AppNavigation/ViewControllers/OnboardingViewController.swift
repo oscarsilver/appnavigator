@@ -34,10 +34,10 @@ class OnboardingViewController: UIViewController {
         return stackView
     }()
 
-    private weak var navigator: AppNavigator?
+    private let navigationCompletion: NavigationCompletion
 
-    init(navigator: AppNavigator) {
-        self.navigator = navigator
+    init(navigationCompletion: @escaping NavigationCompletion) {
+        self.navigationCompletion = navigationCompletion
         super.init(nibName: nil, bundle: nil)
     }
 
@@ -52,7 +52,7 @@ class OnboardingViewController: UIViewController {
 
 extension OnboardingViewController {
     @objc func skipButtonPressed(_ button: UIButton) {
-        navigator?.navigate(to: .bookings(.list))
+        navigationCompletion(self, .bookings(.list))
     }
 }
 
@@ -60,7 +60,7 @@ private extension OnboardingViewController {
     func setupViews() {
         view.backgroundColor = .white
         view.addSubview(stackView)
-         button.addTarget(self, action: #selector(skipButtonPressed(_:)), for: .touchUpInside)
+        button.addTarget(self, action: #selector(skipButtonPressed(_:)), for: .touchUpInside)
     }
 
     func setupConstraints() {

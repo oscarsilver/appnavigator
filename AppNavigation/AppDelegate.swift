@@ -12,25 +12,25 @@ import UIKit
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
-    private lazy var navigator: AppNavigator = AppNavigator(window: self.window)
+    private lazy var coordinator: AppCoordinator = AppCoordinator(window: self.window)
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         let window = UIWindow(frame: UIScreen.main.bounds)
         window.makeKeyAndVisible()
         self.window = window
-        navigator.start()
+        coordinator.start()
         return true
     }
 
     func application(_ app: UIApplication, open url: URL, options: [UIApplicationOpenURLOptionsKey : Any] = [:]) -> Bool {
         guard let destination = parse(url) else { return false }
-        navigator.navigate(to: destination)
+        coordinator.navigate(to: destination)
         return true
     }
 }
 
 private extension AppDelegate {
-    func parse(_ url: URL) -> AppNavigator.Destination? {
+    func parse(_ url: URL) -> Destination? {
         guard let host = url.host else { return nil }
 
         let subPath = url.pathComponents.last
@@ -44,7 +44,8 @@ private extension AppDelegate {
             }
         case "bookings":
             if let subPath = subPath, subPath == "details" {
-                return .bookings(.details(nil))
+//                return .bookings(.details(nil))
+                fatalError("Navigation to booking details not implemented yet")
             } else {
                 return .bookings(.list)
             }

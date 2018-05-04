@@ -10,25 +10,26 @@
 		FA18EBCB2080E1A3000A7C69 /* Booking.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA18EBCA2080E1A3000A7C69 /* Booking.swift */; };
 		FA18EBCE2080E201000A7C69 /* BookingTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA18EBCD2080E201000A7C69 /* BookingTableViewCell.swift */; };
 		FAA54973207FA94500A3F791 /* BookingDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAA54972207FA94500A3F791 /* BookingDetailsViewController.swift */; };
+		FAD69F80209B523A00942C9A /* AppCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAD69F7F209B523A00942C9A /* AppCoordinator.swift */; };
 		FAFA9DC6207F51A400C7B457 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAFA9DC5207F51A400C7B457 /* AppDelegate.swift */; };
 		FAFA9DC8207F51A400C7B457 /* OnboardingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAFA9DC7207F51A400C7B457 /* OnboardingViewController.swift */; };
 		FAFA9DCD207F51A400C7B457 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FAFA9DCC207F51A400C7B457 /* Assets.xcassets */; };
 		FAFA9DD0207F51A400C7B457 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FAFA9DCE207F51A400C7B457 /* LaunchScreen.storyboard */; };
 		FAFA9DD8207F51E200C7B457 /* Navigator.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAFA9DD7207F51E200C7B457 /* Navigator.swift */; };
-		FAFA9DDA207F520900C7B457 /* AppNavigator.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAFA9DD9207F520900C7B457 /* AppNavigator.swift */; };
 		FAFA9DDE207F526800C7B457 /* Basics.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAFA9DDD207F526800C7B457 /* Basics.swift */; };
 		FAFA9DE0207F573A00C7B457 /* UIView+Autolayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAFA9DDF207F573A00C7B457 /* UIView+Autolayout.swift */; };
 		FAFA9DE3207F810D00C7B457 /* MoreMenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAFA9DE2207F810D00C7B457 /* MoreMenuViewController.swift */; };
 		FAFA9DE5207F811300C7B457 /* BookingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAFA9DE4207F811300C7B457 /* BookingsViewController.swift */; };
-		FAFA9DE8207F866C00C7B457 /* MoreMenuNavigator.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAFA9DE7207F866C00C7B457 /* MoreMenuNavigator.swift */; };
-		FAFA9DEA207F869F00C7B457 /* BookingsNavigator.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAFA9DE9207F869F00C7B457 /* BookingsNavigator.swift */; };
 		FAFA9DEC207F8B1B00C7B457 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAFA9DEB207F8B1B00C7B457 /* SettingsViewController.swift */; };
+		FAFDE077209C9750000F3F95 /* BookingCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAFDE076209C9750000F3F95 /* BookingCoordinator.swift */; };
+		FAFDE079209C9B6C000F3F95 /* MoreMenuCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAFDE078209C9B6C000F3F95 /* MoreMenuCoordinator.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		FA18EBCA2080E1A3000A7C69 /* Booking.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Booking.swift; sourceTree = "<group>"; };
 		FA18EBCD2080E201000A7C69 /* BookingTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookingTableViewCell.swift; sourceTree = "<group>"; };
 		FAA54972207FA94500A3F791 /* BookingDetailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookingDetailsViewController.swift; sourceTree = "<group>"; };
+		FAD69F7F209B523A00942C9A /* AppCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppCoordinator.swift; sourceTree = "<group>"; };
 		FAFA9DC2207F51A400C7B457 /* AppNavigation.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AppNavigation.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		FAFA9DC5207F51A400C7B457 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		FAFA9DC7207F51A400C7B457 /* OnboardingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingViewController.swift; sourceTree = "<group>"; };
@@ -36,14 +37,13 @@
 		FAFA9DCF207F51A400C7B457 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		FAFA9DD1207F51A400C7B457 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		FAFA9DD7207F51E200C7B457 /* Navigator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Navigator.swift; sourceTree = "<group>"; };
-		FAFA9DD9207F520900C7B457 /* AppNavigator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppNavigator.swift; sourceTree = "<group>"; };
 		FAFA9DDD207F526800C7B457 /* Basics.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Basics.swift; sourceTree = "<group>"; };
 		FAFA9DDF207F573A00C7B457 /* UIView+Autolayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Autolayout.swift"; sourceTree = "<group>"; };
 		FAFA9DE2207F810D00C7B457 /* MoreMenuViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoreMenuViewController.swift; sourceTree = "<group>"; };
 		FAFA9DE4207F811300C7B457 /* BookingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookingsViewController.swift; sourceTree = "<group>"; };
-		FAFA9DE7207F866C00C7B457 /* MoreMenuNavigator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoreMenuNavigator.swift; sourceTree = "<group>"; };
-		FAFA9DE9207F869F00C7B457 /* BookingsNavigator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookingsNavigator.swift; sourceTree = "<group>"; };
 		FAFA9DEB207F8B1B00C7B457 /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
+		FAFDE076209C9750000F3F95 /* BookingCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookingCoordinator.swift; sourceTree = "<group>"; };
+		FAFDE078209C9B6C000F3F95 /* MoreMenuCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoreMenuCoordinator.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -73,6 +73,16 @@
 			path = Views;
 			sourceTree = "<group>";
 		};
+		FAD69F7E209B522E00942C9A /* Coordinators */ = {
+			isa = PBXGroup;
+			children = (
+				FAD69F7F209B523A00942C9A /* AppCoordinator.swift */,
+				FAFDE076209C9750000F3F95 /* BookingCoordinator.swift */,
+				FAFDE078209C9B6C000F3F95 /* MoreMenuCoordinator.swift */,
+			);
+			path = Coordinators;
+			sourceTree = "<group>";
+		};
 		FAFA9DB9207F51A400C7B457 = {
 			isa = PBXGroup;
 			children = (
@@ -92,6 +102,7 @@
 		FAFA9DC4207F51A400C7B457 /* AppNavigation */ = {
 			isa = PBXGroup;
 			children = (
+				FAD69F7E209B522E00942C9A /* Coordinators */,
 				FA18EBCC2080E1F6000A7C69 /* Views */,
 				FA18EBC92080E198000A7C69 /* Models */,
 				FAFA9DE6207F848100C7B457 /* Navigators */,
@@ -122,9 +133,6 @@
 			isa = PBXGroup;
 			children = (
 				FAFA9DD7207F51E200C7B457 /* Navigator.swift */,
-				FAFA9DD9207F520900C7B457 /* AppNavigator.swift */,
-				FAFA9DE7207F866C00C7B457 /* MoreMenuNavigator.swift */,
-				FAFA9DE9207F869F00C7B457 /* BookingsNavigator.swift */,
 			);
 			path = Navigators;
 			sourceTree = "<group>";
@@ -200,19 +208,19 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FAFDE079209C9B6C000F3F95 /* MoreMenuCoordinator.swift in Sources */,
 				FAFA9DDE207F526800C7B457 /* Basics.swift in Sources */,
 				FAFA9DE0207F573A00C7B457 /* UIView+Autolayout.swift in Sources */,
+				FAD69F80209B523A00942C9A /* AppCoordinator.swift in Sources */,
 				FAFA9DEC207F8B1B00C7B457 /* SettingsViewController.swift in Sources */,
 				FAFA9DC8207F51A400C7B457 /* OnboardingViewController.swift in Sources */,
 				FAFA9DE5207F811300C7B457 /* BookingsViewController.swift in Sources */,
+				FAFDE077209C9750000F3F95 /* BookingCoordinator.swift in Sources */,
 				FA18EBCB2080E1A3000A7C69 /* Booking.swift in Sources */,
-				FAFA9DDA207F520900C7B457 /* AppNavigator.swift in Sources */,
-				FAFA9DEA207F869F00C7B457 /* BookingsNavigator.swift in Sources */,
 				FAA54973207FA94500A3F791 /* BookingDetailsViewController.swift in Sources */,
 				FA18EBCE2080E201000A7C69 /* BookingTableViewCell.swift in Sources */,
 				FAFA9DC6207F51A400C7B457 /* AppDelegate.swift in Sources */,
 				FAFA9DE3207F810D00C7B457 /* MoreMenuViewController.swift in Sources */,
-				FAFA9DE8207F866C00C7B457 /* MoreMenuNavigator.swift in Sources */,
 				FAFA9DD8207F51E200C7B457 /* Navigator.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

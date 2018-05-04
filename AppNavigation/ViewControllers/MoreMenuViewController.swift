@@ -16,7 +16,7 @@ class MoreMenuViewController: UIViewController {
         return label
     }()
 
-    private lazy var button: UIButton = {
+    private lazy var settingsButton: UIButton = {
         let button = UIButton(frame: .zero)
         button.setTitle("Settings", for: .normal)
         button.setTitleColor(.white, for: .normal)
@@ -24,7 +24,15 @@ class MoreMenuViewController: UIViewController {
         return button
     }()
 
-    private var views: [UIView] { return [self.label, self.button] }
+    private lazy var onboardingButton: UIButton = {
+        let button = UIButton(frame: .zero)
+        button.setTitle("Onboarding", for: .normal)
+        button.setTitleColor(.white, for: .normal)
+        button.backgroundColor = .black
+        return button
+    }()
+
+    private var views: [UIView] { return [label, settingsButton, onboardingButton] }
 
     private lazy var stackView: UIStackView = {
         let stackView = UIStackView(arrangedSubviews: views)
@@ -33,10 +41,10 @@ class MoreMenuViewController: UIViewController {
         return stackView
     }()
 
-    private weak var navigator: MoreMenuNavigator?
+    private let navigationCompletion: NavigationCompletion
 
-    init(navigator: MoreMenuNavigator) {
-        self.navigator = navigator
+    init(navigationCompletion: @escaping NavigationCompletion) {
+        self.navigationCompletion = navigationCompletion
         super.init(nibName: nil, bundle: nil)
     }
 
@@ -53,7 +61,11 @@ class MoreMenuViewController: UIViewController {
 
 extension MoreMenuViewController {
     @objc func settingsButtonPressed(_ button: UIButton) {
-        navigator?.navigate(to: .settings)
+        navigationCompletion(self, .moreMenu(.settings))
+    }
+
+    @objc func onboardingButtonPressed(_ button: UIButton) {
+        navigationCompletion(self, .onboarding)
     }
 }
 
@@ -62,7 +74,8 @@ private extension MoreMenuViewController {
         title = "More"
         view.backgroundColor = .white
         view.addSubview(stackView)
-        button.addTarget(self, action: #selector(settingsButtonPressed(_:)), for: .touchUpInside)
+        settingsButton.addTarget(self, action: #selector(settingsButtonPressed(_:)), for: .touchUpInside)
+        onboardingButton.addTarget(self, action: #selector(onboardingButtonPressed(_:)), for: .touchUpInside)
     }
 
     func setupConstriants() {
