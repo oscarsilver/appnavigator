@@ -10,20 +10,14 @@ import UIKit
 
 class BookingCoordinator: TabCoordinator {
 
-    lazy var defaultnavigation: Navigation = { [weak self] _, nextDestination in
-        self?.navigate(to: nextDestination)
+    override class var identifier: String { return String(describing: self) }
+
+    init(parent: Coordinating, tabIndex: Int) {
+        super.init(parent: parent, tabIndex: tabIndex)
+        rootViewController = UINavigationController(rootViewController: BookingsViewController(navigation: defaultnavigation))
     }
 
-    lazy var rootViewController: UIViewController? = UINavigationController(rootViewController: BookingsViewController(navigation: defaultnavigation))
-    weak var parent: Coordinator?
-    let tabIndex: Int
-
-    init(parent: Coordinator, tabIndex: Int) {
-        self.parent = parent
-        self.tabIndex = tabIndex
-    }
-
-    func navigate(to destination: Destination) {
+    override func navigate(to destination: Destination) {
         guard let appStep = destination as? AppStep else { return }
         switch appStep {
         case .bookings(let subDestination):
