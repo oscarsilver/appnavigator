@@ -52,7 +52,7 @@ class OnboardingViewController: UIViewController {
 
 extension OnboardingViewController {
     @objc func skipButtonPressed(_ button: UIButton) {
-        navigation(self, .bookings(.list))
+        navigation(self, AppStep.bookings(.list))
     }
 }
 

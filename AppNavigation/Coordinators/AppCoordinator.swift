@@ -8,11 +8,25 @@
 
 import UIKit
 
-typealias Navigation = (UIViewController, Destination) -> Void
+protocol Presentable {
+    func dismiss(animated: Bool, completion: (() -> Void)?)
+}
 
-enum Destination {
+extension Presentable {
+    func dismiss(animated: Bool = true) {
+        self.dismiss(animated: animated, completion: nil)
+    }
+}
+
+extension UIViewController: Presentable {}
+
+protocol Destination {}
+
+typealias Navigation = (Presentable, Destination) -> Void
+
+enum AppStep: Destination {
     indirect case bookings(BookingDestination)
-    enum BookingDestination {
+    enum BookingDestination: Destination {
         case list
         case details(Booking)
     }
@@ -27,12 +41,18 @@ enum Destination {
     case none
 }
 
-protocol Coordinator: class {
+protocol Coordinator: AnyObject {
     var parent: Coordinator? { get }
     var tabIndex: Int? { get }
     static var identifier: String { get }
     var rootViewController: UIViewController? { get }
     func navigate(to destination: Destination)
+}
+
+extension Coordinator {
+    func navigate(to step: AppStep) {
+        self.navigate(to: step as Destination)
+    }
 }
 
 extension Coordinator {
@@ -61,15 +81,16 @@ class AppCoordinator: Coordinator {
     }
 
     func navigate(to destination: Destination) {
-        switch destination {
+        guard let appStep = destination as? AppStep else { return }
+        switch appStep {
         case .bookings:
             navigateToTab(coordinatorIdentifier: BookingCoordinator.identifier, destination)
         case .moreMenu:
             navigateToTab(coordinatorIdentifier: MoreMenuCoordinator.identifier, destination)
         case .onboarding:
-            let onboardingViewController = OnboardingViewController { [weak self] viewController, nextDestination in
+            let onboardingViewController = OnboardingViewController { [weak self] presentable, nextDestination in
                 self?.navigate(to: nextDestination)
-                viewController.dismiss(animated: true)
+                presentable.dismiss(animated: true)
             }
             rootViewController?.present(onboardingViewController, animated: false)
         default:

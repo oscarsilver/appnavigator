@@ -23,7 +23,8 @@ class MoreMenuCoordinator: Coordinator {
     }
 
     func navigate(to destination: Destination) {
-        switch destination {
+        guard let appStep = destination as? AppStep else { return }
+        switch appStep {
         case .moreMenu(let subDestination):
             guard let rootViewController = rootViewController as? UINavigationController else { return }
             switch subDestination {

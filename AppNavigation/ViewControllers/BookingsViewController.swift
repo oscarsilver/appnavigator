@@ -46,7 +46,7 @@ extension BookingsViewController {
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         defer { tableView.deselectRow(at: indexPath, animated: true) }
         guard let booking = booking(at: indexPath) else { return }
-        navigation(self, .bookings(.details(booking)))
+        navigation(self, AppStep.bookings(.details(booking)))
     }
 }
 

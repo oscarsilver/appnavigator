@@ -24,7 +24,8 @@ class BookingCoordinator: Coordinator {
     }
 
     func navigate(to destination: Destination) {
-        switch destination {
+        guard let appStep = destination as? AppStep else { return }
+        switch appStep {
         case .bookings(let subDestination):
             guard let rootViewController = rootViewController as? UINavigationController else { return }
             switch subDestination {
