@@ -8,7 +8,7 @@
 
 import UIKit
 
-class BookingCoordinator: Coordinator {
+class BookingCoordinator: TabCoordinator {
 
     lazy var defaultnavigation: Navigation = { [weak self] _, nextDestination in
         self?.navigate(to: nextDestination)
@@ -16,7 +16,7 @@ class BookingCoordinator: Coordinator {
 
     lazy var rootViewController: UIViewController? = UINavigationController(rootViewController: BookingsViewController(navigation: defaultnavigation))
     weak var parent: Coordinator?
-    let tabIndex: Int?
+    let tabIndex: Int
 
     init(parent: Coordinator, tabIndex: Int) {
         self.parent = parent

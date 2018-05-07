@@ -42,11 +42,17 @@ enum AppStep: Destination {
 }
 
 protocol Coordinator: AnyObject {
-    var parent: Coordinator? { get }
-    var tabIndex: Int? { get }
     static var identifier: String { get }
     var rootViewController: UIViewController? { get }
     func navigate(to destination: Destination)
+}
+
+protocol ChildCoordinator: Coordinator {
+    var parent: Coordinator? { get }
+}
+
+protocol TabCoordinator: ChildCoordinator {
+    var tabIndex: Int { get }
 }
 
 extension Coordinator {
@@ -62,13 +68,11 @@ extension Coordinator {
 }
 
 class AppCoordinator: Coordinator {
-    var tabIndex: Int? = nil
-    var parent: Coordinator? = nil
 
     private weak var window: UIWindow?
     var rootViewController: UIViewController?
 
-    var childCoordinators: [String: Coordinator] = [:]
+    var childCoordinators: [String: ChildCoordinator] = [:]
 
     lazy var defaultnavigation: Navigation = { [weak self] _, nextDestination in
         self?.navigate(to: nextDestination)
@@ -106,14 +110,10 @@ class AppCoordinator: Coordinator {
 // MARK: - Private Methods
 private extension AppCoordinator {
     func navigateToTab(coordinatorIdentifier: String, _ destination: Destination) {
-        guard let coordinator = childCoordinators[coordinatorIdentifier],
+        guard let tabCoordinator = childCoordinators[coordinatorIdentifier] as? TabCoordinator,
             let tabBarController = rootViewController as? UITabBarController else { return }
-
-        if let tabIndex = coordinator.tabIndex {
-            tabBarController.selectedIndex = tabIndex
-        }
-
-        coordinator.navigate(to: destination)
+        tabBarController.selectedIndex = tabCoordinator.tabIndex
+        tabCoordinator.navigate(to: destination)
     }
 
     func createTabBarController() -> UITabBarController {
