@@ -139,11 +139,11 @@ class AppCoordinator: AbstractCoordinator {
         guard let appStep = destination as? AppStep else { return }
         switch appStep {
         case .bookings:
-            navigateToTab(coordinatorIdentifier: BookingCoordinator.identifier, destination)
+            navigateToChildCoordinator(coordinatorIdentifier: BookingCoordinator.identifier, destination)
         case .moreMenu:
-            navigateToTab(coordinatorIdentifier: MoreMenuCoordinator.identifier, destination)
+            navigateToChildCoordinator(coordinatorIdentifier: MoreMenuCoordinator.identifier, destination)
         case .onboarding:
-            navigateToOnboardingCoordinator(destination)
+            navigateToChildCoordinator(coordinatorIdentifier: OnboardingCoordinator.identifier, destination)
         case .modal(let destination):
             presentModal(destination)
         case .none:
@@ -160,7 +160,7 @@ class AppCoordinator: AbstractCoordinator {
 private extension AppCoordinator {
     func presentModal(_ destination: Destination) {
         guard let modalAppstep = destination as? AppStep.ModalDestination else { return }
-        
+
         let modalViewController: UIViewController
         switch modalAppstep {
         case .secondOnboarding:
@@ -170,33 +170,41 @@ private extension AppCoordinator {
         rootViewController?.present(modalViewController, animated: true)
     }
 
-    func navigateToOnboardingCoordinator(_ destination: Destination) {
-        let onboardingCoordinator = OnboardingCoordinator(parent: self)
-        childCoordinators[OnboardingCoordinator.identifier] = onboardingCoordinator
-        onboardingCoordinator.navigate(to: destination)
-        guard let onboardingRootViewController = onboardingCoordinator.rootViewController else { return }
-        rootViewController?.present(onboardingRootViewController, animated: true)
-    }
+    func navigateToChildCoordinator(coordinatorIdentifier: String, _ destination: Destination) {
+        guard let childCoordinator = childCoordinators[coordinatorIdentifier] else { return }
 
-    func navigateToTab(coordinatorIdentifier: String, _ destination: Destination) {
-        guard let tabCoordinator = childCoordinators[coordinatorIdentifier] as? TabCoordinating,
-            let tabBarController = rootViewController as? UITabBarController else { return }
-        tabBarController.selectedIndex = tabCoordinator.tabIndex
-        tabCoordinator.navigate(to: destination)
+        if let tabCoordinator = childCoordinator as? TabCoordinating, let tabBarController = rootViewController as? UITabBarController {
+            tabBarController.selectedIndex = tabCoordinator.tabIndex
+        } else if let childRootViewController = childCoordinator.rootViewController {
+            rootViewController?.present(childRootViewController, animated: true)
+        }
+
+        childCoordinator.navigate(to: destination)
     }
 
     func addChildCoordinator(_ child: AbstractChildCoordinator) {
         childCoordinators[child.identifier] = child
     }
 
-    func createTabBarController() -> UITabBarController {
+    func createChildCoordinators() {
         let coordinators = [
             BookingCoordinator(parent: self, tabIndex: 0),
-            MoreMenuCoordinator(parent: self, tabIndex: 1)
+            MoreMenuCoordinator(parent: self, tabIndex: 1),
+            OnboardingCoordinator(parent: self)
         ]
         coordinators.forEach { addChildCoordinator($0) }
+    }
+
+    func createTabBarController() -> UITabBarController {
+        createChildCoordinators()
+
+        let tabCoordinators = [
+            childCoordinators[BookingCoordinator.identifier],
+            childCoordinators[MoreMenuCoordinator.identifier]
+            ].compactMap { $0 as? TabCoordinating }
+
         let tabBarController = UITabBarController(nibName: nil, bundle: nil)
-        tabBarController.viewControllers = coordinators.compactMap { $0.rootViewController }
+        tabBarController.viewControllers = tabCoordinators.compactMap { $0.rootViewController }
         return tabBarController
     }
 }
