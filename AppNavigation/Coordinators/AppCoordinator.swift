@@ -21,14 +21,16 @@ extension Presentable {
 extension UIViewController: Presentable {}
 
 protocol Destination {}
+protocol Model {}
 
-typealias Navigation = (Presentable, Destination) -> Void
+typealias Navigation = (Presentable?, Destination) -> Void
 
 enum AppStep: Destination {
     indirect case bookings(BookingDestination)
     enum BookingDestination: Destination {
         case list
         case details(Booking)
+        case cancel(Booking)
     }
 
     indirect case moreMenu(MoreMenuDestination)
@@ -74,7 +76,7 @@ class AbstractCoordinator: Coordinating {
 
     var modalDismiss: Navigation {
         return { [weak self] presentable, _ in
-            presentable.dismiss(animated: true)
+            presentable?.dismiss(animated: true)
             self?.navigate(to: AppStep.none)
         }
     }
@@ -152,7 +154,7 @@ class AppCoordinator: AbstractCoordinator {
     }
 
     func start() {
-        navigate(to: .onboarding(.first))
+        navigate(to: .bookings(.list))
     }
 }
 

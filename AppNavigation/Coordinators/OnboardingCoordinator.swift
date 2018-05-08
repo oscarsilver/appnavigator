@@ -13,7 +13,7 @@ class OnboardingCoordinator: AbstractChildCoordinator {
 
     var onboardingNavigation: Navigation {
         return { [weak self] presentable, nextDestination in
-            presentable.dismiss(animated: true)
+            presentable?.dismiss(animated: true)
             self?.navigate(to: nextDestination)
         }
     }

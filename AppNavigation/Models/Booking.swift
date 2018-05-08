@@ -8,6 +8,6 @@
 
 import Foundation
 
-struct Booking {
+struct Booking: Model {
     let hotelName: String
 }

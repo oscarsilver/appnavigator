@@ -28,10 +28,28 @@ class BookingCoordinator: TabCoordinator {
             case .details(let booking):
                 let bookingDetailsViewController = BookingDetailsViewController(booking: booking)
                 rootViewController.pushViewController(bookingDetailsViewController, animated: true)
+            case .cancel(let booking):
+                let alertController  = createAlertController(title: "Cancel Booking?", message: booking.hotelName)
+                rootViewController.present(alertController, animated: true)
             }
         default:
             print("Did not implement navigation to \(destination). Forwarding to parent")
             parent?.navigate(to: destination)
         }
+    }
+}
+
+private extension BookingCoordinator {
+    func createAlertController(title: String?, message: String? = nil) -> UIAlertController {
+        let alertController = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        let cancelAction = UIAlertAction(title: "Cancel", style: .destructive) { _ in
+            alertController.dismiss(animated: true)
+        }
+        let dismissAction = UIAlertAction(title: "No", style: .default) { _ in
+            alertController.dismiss(animated: true)
+        }
+        alertController.addAction(cancelAction)
+        alertController.addAction(dismissAction)
+        return alertController
     }
 }

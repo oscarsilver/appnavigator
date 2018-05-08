@@ -32,6 +32,7 @@ class BookingTableViewCell: UITableViewCell {
     }()
 
     private var booking: Booking?
+    private var navigation: Navigation?
 
     override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -41,16 +42,17 @@ class BookingTableViewCell: UITableViewCell {
 
     required init?(coder aDecoder: NSCoder) { requiredInit }
 
-    func configure(with booking: Booking?) {
+    func configure(with booking: Booking, navigation: @escaping Navigation) {
         self.booking = booking
-        nameLabel.text = booking?.hotelName
+        self.navigation = navigation
+        nameLabel.text = booking.hotelName
     }
 }
 
 extension BookingTableViewCell {
     @objc func cancelButtonPressed(_ button: UIButton) {
         guard let booking = booking else { return }
-//        navigator?.navigate(to: .alert(booking))
+        navigation?(nil, AppStep.bookings(.cancel(booking)))
     }
 }
 
