@@ -35,22 +35,27 @@ private extension AppDelegate {
 
         let subPath = url.pathComponents.last
 
+        var appStep: AppStep?
+
         switch host {
         case "more":
             if let subPath = subPath, subPath == "settings" {
-                return .moreMenu(.settings)
+                appStep = .moreMenu(.settings)
             } else {
-                return .moreMenu(.root)
+                appStep = .moreMenu(.root)
             }
         case "bookings":
-            if let subPath = subPath, subPath == "details" {
-//                return .bookings(.details(nil))
-                fatalError("Navigation to booking details not implemented yet")
+            guard let subPath = subPath else { return AppStep.none }
+            let booking = Booking(hotelName: "Deep linked hotel")
+            if subPath == "details" {
+                appStep = .bookings(.details(booking))
+            } else if subPath == "cancel" {
+                appStep = .bookings(.cancel(booking))
             } else {
-                return .bookings(.list)
+                appStep = .bookings(.list)
             }
-        default:
-            return nil
+        default: break
         }
+        return appStep
     }
 }

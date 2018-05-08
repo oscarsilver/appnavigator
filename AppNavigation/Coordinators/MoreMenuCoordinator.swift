@@ -8,22 +8,18 @@
 
 import UIKit
 
-class MoreMenuCoordinator: Coordinator {
-    lazy var defaultnavigation: Navigation = { [weak self] _, nextDestination in
-        self?.navigate(to: nextDestination)
+class MoreMenuCoordinator: TabCoordinator {
+
+    override class var identifier: String { return String(describing: self) }
+
+    init(parent: Coordinating, tabIndex: Int) {
+        super.init(parent: parent, tabIndex: tabIndex)
+        rootViewController = UINavigationController(rootViewController: MoreMenuViewController(navigation: defaultNavigation))
     }
 
-    lazy var rootViewController: UIViewController? = UINavigationController(rootViewController: MoreMenuViewController(navigation: defaultnavigation))
-    weak var parent: Coordinator?
-    let tabIndex: Int?
-
-    init(parent: Coordinator, tabIndex: Int) {
-        self.parent = parent
-        self.tabIndex = tabIndex
-    }
-
-    func navigate(to destination: Destination) {
-        switch destination {
+   override func navigate(to destination: Destination) {
+        guard let appStep = destination as? AppStep else { return }
+        switch appStep {
         case .moreMenu(let subDestination):
             guard let rootViewController = rootViewController as? UINavigationController else { return }
             switch subDestination {

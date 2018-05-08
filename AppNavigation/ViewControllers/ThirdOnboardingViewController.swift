@@ -1,25 +1,25 @@
 //
-//  OnboardingViewController.swift
+//  ThirdOnboardingViewController.swift
 //  AppNavigation
 //
-//  Created by Oscar Silver on 2018-04-12.
+//  Created by Oscar Silver on 2018-05-08.
 //  Copyright © 2018 eBerry. All rights reserved.
 //
 
 import UIKit
 
-class OnboardingViewController: UIViewController {
+class ThirdOnboardingViewController: UIViewController {
 
     private lazy var label: UILabel = {
         let label = UILabel(frame: .zero)
-        label.text = "OnboardingViewController"
+        label.text = "Third OnboardingViewController"
         label.textAlignment = .center
         return label
     }()
 
     private lazy var button: UIButton = {
         let button = UIButton(frame: .zero)
-        button.setTitle("Skip", for: .normal)
+        button.setTitle("Done", for: .normal)
         button.setTitleColor(.white, for: .normal)
         button.backgroundColor = .black
         return button
@@ -50,20 +50,21 @@ class OnboardingViewController: UIViewController {
     }
 }
 
-extension OnboardingViewController {
-    @objc func skipButtonPressed(_ button: UIButton) {
-        navigation(self, .bookings(.list))
+extension ThirdOnboardingViewController {
+    @objc func doneButtonPressed(_ button: UIButton) {
+        navigation(self, AppStep.bookings(.list))
     }
 }
 
-private extension OnboardingViewController {
+private extension ThirdOnboardingViewController {
     func setupViews() {
         view.backgroundColor = .white
         view.addSubview(stackView)
-        button.addTarget(self, action: #selector(skipButtonPressed(_:)), for: .touchUpInside)
+        button.addTarget(self, action: #selector(doneButtonPressed(_:)), for: .touchUpInside)
     }
 
     func setupConstraints() {
         stackView.center(in: view)
     }
 }
+

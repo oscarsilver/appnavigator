@@ -61,11 +61,11 @@ class MoreMenuViewController: UIViewController {
 
 extension MoreMenuViewController {
     @objc func settingsButtonPressed(_ button: UIButton) {
-        navigation(self, .moreMenu(.settings))
+        navigation(self, AppStep.moreMenu(.settings))
     }
 
     @objc func onboardingButtonPressed(_ button: UIButton) {
-        navigation(self, .onboarding)
+        navigation(self, AppStep.modal(.secondOnboarding))
     }
 }
 
