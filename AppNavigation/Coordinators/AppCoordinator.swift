@@ -72,6 +72,13 @@ class AbstractCoordinator: Coordinating {
         }
     }
 
+    var modalDismiss: Navigation {
+        return { [weak self] presentable, _ in
+            presentable.dismiss(animated: true)
+            self?.navigate(to: AppStep.none)
+        }
+    }
+
     init(rootViewController: UIViewController? = nil) {
         self.rootViewController = rootViewController
     }
@@ -153,11 +160,7 @@ class AppCoordinator: AbstractCoordinator {
 private extension AppCoordinator {
     func presentModal(_ destination: Destination) {
         guard let modalAppstep = destination as? AppStep.ModalDestination else { return }
-        let modalDismiss: Navigation = { [weak self] presentable, _ in
-            presentable.dismiss(animated: true)
-            self?.navigate(to: AppStep.none)
-        }
-
+        
         let modalViewController: UIViewController
         switch modalAppstep {
         case .secondOnboarding:
