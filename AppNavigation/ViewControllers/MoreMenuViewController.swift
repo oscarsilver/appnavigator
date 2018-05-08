@@ -65,7 +65,7 @@ extension MoreMenuViewController {
     }
 
     @objc func onboardingButtonPressed(_ button: UIButton) {
-        navigation(self, AppStep.onboarding)
+        navigation(self, AppStep.modal(.secondOnboarding))
     }
 }
 

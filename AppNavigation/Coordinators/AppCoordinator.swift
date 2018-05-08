@@ -37,7 +37,17 @@ enum AppStep: Destination {
         case settings
     }
 
-    case onboarding
+    indirect case onboarding(OnboardingDestination)
+    enum OnboardingDestination {
+        case first
+        case second
+        case third
+    }
+
+    indirect case modal(ModalDestination)
+    enum ModalDestination: Destination {
+        case secondOnboarding
+    }
     case none
 }
 
@@ -73,7 +83,7 @@ protocol ChildCoordinating: Coordinating {
 
 class AbstractChildCoordinator: AbstractCoordinator, ChildCoordinating {
     var parent: Coordinating?
-    init(parent: Coordinating, rootViewController: UIViewController?) {
+    init(parent: Coordinating, rootViewController: UIViewController? = nil) {
         self.parent = parent
         super.init(rootViewController: rootViewController)
     }
@@ -126,23 +136,45 @@ class AppCoordinator: AbstractCoordinator {
         case .moreMenu:
             navigateToTab(coordinatorIdentifier: MoreMenuCoordinator.identifier, destination)
         case .onboarding:
-            let onboardingViewController = OnboardingViewController { [weak self] presentable, nextDestination in
-                self?.navigate(to: nextDestination)
-                presentable.dismiss(animated: true)
-            }
-            rootViewController?.present(onboardingViewController, animated: false)
-        default:
-            print("Navigation to \(destination) not implemented yet")
+            navigateToOnboardingCoordinator(destination)
+        case .modal(let destination):
+            presentModal(destination)
+        case .none:
+            print("Nothing..")
         }
     }
 
     func start() {
-        navigate(to: .bookings(.list))
+        navigate(to: .onboarding(.first))
     }
 }
 
 // MARK: - Private Methods
 private extension AppCoordinator {
+    func presentModal(_ destination: Destination) {
+        guard let modalAppstep = destination as? AppStep.ModalDestination else { return }
+        let modalDismiss: Navigation = { [weak self] presentable, _ in
+            presentable.dismiss(animated: true)
+            self?.navigate(to: AppStep.none)
+        }
+
+        let modalViewController: UIViewController
+        switch modalAppstep {
+        case .secondOnboarding:
+            modalViewController = SecondOnboardingViewController(navigation: modalDismiss)
+        }
+        
+        rootViewController?.present(modalViewController, animated: true)
+    }
+
+    func navigateToOnboardingCoordinator(_ destination: Destination) {
+        let onboardingCoordinator = OnboardingCoordinator(parent: self)
+        childCoordinators[OnboardingCoordinator.identifier] = onboardingCoordinator
+        onboardingCoordinator.navigate(to: destination)
+        guard let onboardingRootViewController = onboardingCoordinator.rootViewController else { return }
+        rootViewController?.present(onboardingRootViewController, animated: true)
+    }
+
     func navigateToTab(coordinatorIdentifier: String, _ destination: Destination) {
         guard let tabCoordinator = childCoordinators[coordinatorIdentifier] as? TabCoordinating,
             let tabBarController = rootViewController as? UITabBarController else { return }
