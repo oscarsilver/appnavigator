@@ -20,7 +20,7 @@ class OnboardingCoordinator: AbstractChildCoordinator {
 
     init(parent: Coordinating) {
         super.init(parent: parent)
-        rootViewController = UINavigationController(rootViewController: FirstOnboardingViewController(navigation: defaultnavigation))
+        rootViewController = UINavigationController(rootViewController: FirstOnboardingViewController(navigation: defaultNavigation))
     }
 
     override func navigate(to destination: Destination) {
@@ -32,7 +32,7 @@ class OnboardingCoordinator: AbstractChildCoordinator {
             case .first:
                 rootViewController.popToRootViewController(animated: true)
             case .second:
-                let secondOnboardingViewController = SecondOnboardingViewController(navigation: defaultnavigation)
+                let secondOnboardingViewController = SecondOnboardingViewController(navigation: defaultNavigation)
                 rootViewController.pushViewController(secondOnboardingViewController, animated: true)
             case .third:
                 let thirdOnboardingViewController = ThirdOnboardingViewController(navigation: onboardingNavigation)

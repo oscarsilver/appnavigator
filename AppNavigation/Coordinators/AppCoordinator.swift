@@ -66,7 +66,7 @@ class AbstractCoordinator: Coordinating {
         fatalError("Implement me")
     }
 
-    var defaultnavigation: Navigation {
+    var defaultNavigation: Navigation {
         return { [weak self] _, nextDestination in
             self?.navigate(to: nextDestination)
         }
@@ -163,7 +163,7 @@ private extension AppCoordinator {
         case .secondOnboarding:
             modalViewController = SecondOnboardingViewController(navigation: modalDismiss)
         }
-        
+
         rootViewController?.present(modalViewController, animated: true)
     }
 

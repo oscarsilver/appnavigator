@@ -14,7 +14,7 @@ class BookingCoordinator: TabCoordinator {
 
     init(parent: Coordinating, tabIndex: Int) {
         super.init(parent: parent, tabIndex: tabIndex)
-        rootViewController = UINavigationController(rootViewController: BookingsViewController(navigation: defaultnavigation))
+        rootViewController = UINavigationController(rootViewController: BookingsViewController(navigation: defaultNavigation))
     }
 
     override func navigate(to destination: Destination) {

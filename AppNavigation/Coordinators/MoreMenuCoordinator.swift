@@ -14,7 +14,7 @@ class MoreMenuCoordinator: TabCoordinator {
 
     init(parent: Coordinating, tabIndex: Int) {
         super.init(parent: parent, tabIndex: tabIndex)
-        rootViewController = UINavigationController(rootViewController: MoreMenuViewController(navigation: defaultnavigation))
+        rootViewController = UINavigationController(rootViewController: MoreMenuViewController(navigation: defaultNavigation))
     }
 
    override func navigate(to destination: Destination) {
