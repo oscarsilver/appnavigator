@@ -45,9 +45,12 @@ private extension AppDelegate {
                 appStep = .moreMenu(.root)
             }
         case "bookings":
-            if let subPath = subPath, subPath == "details" {
-//                return .bookings(.details(nil))
-                fatalError("Navigation to booking details not implemented yet")
+            guard let subPath = subPath else { return AppStep.none }
+            let booking = Booking(hotelName: "Deep linked hotel")
+            if subPath == "details" {
+                appStep = .bookings(.details(booking))
+            } else if subPath == "cancel" {
+                appStep = .bookings(.cancel(booking))
             } else {
                 appStep = .bookings(.list)
             }
